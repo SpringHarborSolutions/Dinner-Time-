@@ -1,0 +1,30 @@
+{
+  "_about": "Copy to settings.json and fill it in from the setup interview. Everything here is a made-up example. The ids block starts empty and is filled in as the Drive files are created.",
+  "app_title": "Dinner Time!",
+  "household": "the Example household",
+  "folder_name": "Dinner Time",
+  "time_zone": "America/New_York",
+  "tz_standard": "EST (UTC-05:00)",
+  "tz_daylight": "EDT (UTC-04:00)",
+  "people": [
+    {"id": "alex", "name": "Alex", "color": "navy"},
+    {"id": "sam", "name": "Sam", "color": "turquoise"}
+  ],
+  "owner": "alex",
+  "trusted_accounts": ["alex@example.com", "sam@example.com"],
+  "cook": {"Monday": ["alex"], "Tuesday": ["sam"], "Wednesday": ["alex"], "Thursday": ["sam"], "Friday": ["alex"], "Saturday": ["sam"], "Sunday": ["alex", "sam"]},
+  "pick_day": "Friday",
+  "lists": {"grocery": "Grocery", "extra": "Hardware"},
+  "freezer_locations": ["Kitchen freezer", "Chest freezer"],
+  "aisles": ["Produce", "Bread", "Meat", "Dry goods", "Frozen", "Dairy", "Deli", "Bakery", "Household"],
+  "agents": ["Claude", "ChatGPT"],
+  "refresh": "hourly",
+  "install_date": "2030-01-15",
+  "ids": {
+    "root_folder": "",
+    "sheets": {"shopping": "", "freezer": "", "recipes": "", "gear": "", "bugs": ""},
+    "folders": {"recipeImages": "", "gearImages": "", "gearFiles": "", "maintImages": "", "siteFiles": "", "appChanges": "", "inbox": "", "applied": "", "held": "", "drafts": "", "setupRecords": ""},
+    "docs": {"rules": "", "prefs": {}, "pantry": "", "guide": "", "changeRules": ""},
+    "app_url": ""
+  }
+}

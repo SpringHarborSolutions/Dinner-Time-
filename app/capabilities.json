@@ -1,0 +1,12 @@
+{
+  "assets": {},
+  "db": {},
+  "mcp": {
+    "servers": [
+      {"server": "Google Sheets", "tools": ["get_values", "get_spreadsheet", "update_spreadsheet"]},
+      {"server": "Google Drive", "tools": ["create_file", "download_file_content"]}
+    ]
+  },
+  "room": {"topics": {"cheer": "interact"}},
+  "user": {}
+}

@@ -1,0 +1,53 @@
+{
+  "shopping": [
+    ["Purpose", "Keep the active lists simple while preserving every original record and every later addition, edit, removal and restoration. The UID links records; full readable text is always kept."],
+    ["Use through chat", "Ask your AI assistant ({{AGENTS}}) to add, edit, remove selected items, clear a list, or restore an item. Name the list, the person, and any notes. The app ({{APP_TITLE}}) makes the same tracked changes."],
+    ["Direct sheet changes", "Typing, clearing or deleting rows by hand does not write the Activity Log. Use the app or your assistant for tracked changes. Google's version history is separate."],
+    ["Active lists", "{{GROCERY_TAB}} and {{EXTRA_TAB}} are the two active lists. Columns: Item Needed, Date Added, Notes, Added By, UID. Each active UID appears once. Removed items do not stay on the active list."],
+    ["UID", "On adding, generate a new permanent UID: SHOP-<uuid> for {{GROCERY_TAB}}, STORE2-<uuid> for {{EXTRA_TAB}}. Never derive it from the row number or item name. Editing, removing and restoring keep the UID. A genuinely new purchase gets a new UID even if its name repeats."],
+    ["Activity Log", "Append one event per item for Add, Edit, Remove, Restore or a correction. Never overwrite or delete earlier events. Columns A:E give a readable summary, time, action, person and action notes; later columns keep full before/after and original details. The last column says which list."],
+    ["Original information", "Original Item, Original Date Added, Original Notes and Original Added By are the exact snapshot at creation. Carry them forward in every event and removal record. Never replace them when correcting the active values. Keep blanks as blanks."],
+    ["Full before and after", "For every edit, copy all four current fields into Before and all four resulting fields into After, even if only one changes. State Before/After is Active, Removed or Not yet added. Keep full text, spelling and line breaks."],
+    ["Who and when", "Changed By is the person named in the request ({{PEOPLE_NAMES}}). Ask if unclear; never guess. Added By is who asked for the item, not automatically who removed it. Recorded By is the assistant or the app. Time is a fixed timestamp in {{TZ}}; never NOW() or TODAY()."],
+    ["Action notes", "Keep reasons separate from item Notes. Record a reason exactly as given; leave it blank when none is given. Never invent a reason."],
+    ["Add", "Needs a non-blank item and a known Added By. Use the given date or today. Write the active row and an Add event together: Before blank, State Not yet added → Active."],
+    ["Edit", "Find the exact active UID. Append an Edit event with full before/after and the original snapshot, then update only that item, in the same batch. The UID never changes."],
+    ["Remove selected", "Resolve each item to one active UID; if names repeat, ask. Append a History snapshot and a Remove event, then delete only those rows, in the same batch. State Active → Removed."],
+    ["Clear all", "Read every active item first. One History row and one Remove event per item, with a shared Batch ID. If the list is already empty, report that and write nothing."],
+    ["Restore", "Pick the UID and its removal event. Re-add it with the same UID, Date Added and Added By, and append a Restore event (Removed → Active) whose Related Event ID points at the removal. Refuse if the UID is already active."],
+    ["History", "Append-only snapshots of every removal. A History row means the item was removed then; the latest Activity Log event says its current state."],
+    ["Safe writes", "Read before writing, write related rows in one batch, delete rows bottom to top, and after a timeout read back the Event IDs before retrying. Verify every change before reporting it."],
+    ["Untracked rows", "Before the first tracked change to a row with no UID, give it a UID and record an Import event noting that earlier history is unavailable."],
+    ["Examples", "“Add furnace filters to {{EXTRA_TAB}}; notes: 16 × 25 × 1.” “Remove milk and eggs from {{GROCERY_TAB}}; I picked them up.” “Clear {{EXTRA_TAB}}; I bought everything.” “Restore the batteries I removed.”"],
+    ["Setup", "Both lists started empty when {{APP_TITLE}} was installed on {{INSTALL_DATE}}. Full agent rules: the Google Doc “00 Agent Rules – read first” ({{RULES_DOC_ID}})."]
+  ],
+  "freezer": [
+    ["Live source", "This sheet is the live freezer inventory. The app and your assistant both read and write it."],
+    ["Oldest first", "Sort dated items still In freezer by Label date ascending, then Item ID. Dates are the label dates as written, not verified freezing dates. List undated items separately; never invent dates."],
+    ["Packages", "Each physical package is its own row with its own permanent Item ID, even when identical. A package may hold several pieces; confirm which package when it's ambiguous."],
+    ["Pulled to thaw", "ONE COMPLETE WITHDRAWAL + RECIPES WORKFLOW: find the Item ID; set Status = Removed to thaw, the removal date and Reported by = the person; append Change Log; append Confirmed Withdrawals with Recipe status pending. Then read the household's preference docs and the pantry doc and write {{IDEA_COUNT}} complete, distinct recipes PER pulled item ({{IDEA_CATEGORIES}}) as separate rows in the 'Freezer Ideas' tab of “03 Recipes and Menu” ({{RECIPES_ID}}) — ingredients with quantities, full instructions, times, pantry matches, items to buy or check, equipment, Batch ID, Package ID and a unique Recipe option ID. Verify the rows per item, then set that item's Recipe status to complete. Don't log a withdrawal twice; if a withdrawal is logged but its recipes are missing, add the recipes only."],
+    ["Moves", "Moving between freezers changes Location only. Status stays In freezer."],
+    ["Shared updates", "Read live rows before each edit. Identify by Item ID, not row number. Apply only the reported change, verify it, and confirm what changed. Reported by is the person who reported the change."],
+    ["Duplicate reports", "If the same item is already removed, don't remove or count it again. Ask only when the report could mean a different package."],
+    ["Partial removal", "If only part of a package is taken, keep the row, reduce the quantity if known and record what was taken in Update notes and the Change Log. Don't guess unknown quantities."],
+    ["New items", "Assign a new, never-used Item ID (one more than the highest in Inventory and Change Log); record label date, quantity or weight, location and Pick-day protein."],
+    ["Pick-day protein", "{{PICK_DAY_GUIDE}}"],
+    ["Unknown dates", "Blank means not provided. Keep best-if-used-by dates as they are and set Date type to best_if_used_by."],
+    ["Locations", "Locations in use: {{FREEZER_LOCATIONS}}. Add a new one only when the household mentions it."],
+    ["Recipes and menu", "All recipes and the dinner menu live in “03 Recipes and Menu” ({{RECIPES_ID}}). Follow that workbook's Rules tab and the Google Doc “00 Agent Rules – read first” ({{RULES_DOC_ID}})."]
+  ],
+  "recipes": [
+    ["This workbook", "All recipes live here. 'Recipes' = saved recipes. 'Freezer Ideas' = the recipe ideas written for each package pulled from the freezer. 'Menu' = the dinner plan for the next 7 nights."],
+    ["Freezer Ideas", "When a freezer pull is reported, save {{IDEA_COUNT}} distinct recipes PER pulled item ({{IDEA_CATEGORIES}}) as separate rows here (Week start through Created at; leave Saved RecipeID blank). Recipe option ID (column R) must be unique. Verify the rows per item, then set that item's Recipe status in the freezer workbook's Confirmed Withdrawals to 'complete'. Never write freezer ideas into the Recipes tab."],
+    ["Saving an idea", "To save a freezer idea to the recipes, add a Recipes row (new 8-character RecipeID, name, instructions with ingredients and steps), add its RecipeCategories rows, and put the new RecipeID in that idea's Saved RecipeID (column T)."],
+    ["Menu rows", "One row per dish per night. Date = YYYY-MM-DD ({{TZ}}). Day = weekday name. Role = Main or Side (one Main per night; replacing the Main replaces only that row). Source = Recipe, Freezer idea, or New recipe (typed in, not saved yet; Recipe ID blank). Picked by = the person who asked. Via = App or the assistant's name. Picked at = timestamp. MenuID = 'M-' + Date + '-' + a short unique suffix."],
+    ["Window", "The menu covers today plus the next 6 nights. Only add dates in that window unless asked."],
+    ["Outcome", "Outcome is blank until someone says it was made ('Made') or not ('Skipped')."],
+    ["Menu Log", "Every change to Menu (Added, Replaced, Removed, Marked made, Marked skipped, Archived) gets one Menu Log row: When, Who, Via, Action, Date, Recipe, Details. Never edit or delete Menu Log rows."],
+    ["Archive", "{{ARCHIVE_LINE}}"],
+    ["Ratings", "One row per recipe per person: RatingID = RATE-<RecipeID>-<person id> ({{PEOPLE_IDS}}). Stars 1–5, 5 is best."],
+    ["Do not touch", "Never edit the About or Rules tabs."],
+    ["Spreadsheet IDs", "This workbook: {{RECIPES_ID}}. Freezer workbook: {{FREEZER_ID}}. Full agent rules: “00 Agent Rules – read first” ({{RULES_DOC_ID}}). Find files by ID, not name."],
+    ["Whose night", "{{COOK_LINE}}"]
+  ]
+}

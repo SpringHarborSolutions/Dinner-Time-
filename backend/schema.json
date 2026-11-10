@@ -1,0 +1,91 @@
+{
+  "_about": "Single source of truth for the Dinner Time! Google Drive layout. The app, the scheduled refresh, the rules doc and every assistant's skill read these exact tabs and column orders. Never reorder, rename, insert or delete columns. {{GROCERY_TAB}} and {{EXTRA_TAB}} are the household's two list names (defaults: Grocery, Hardware).",
+  "kit_version": "2.0.0",
+  "root_folder": "Dinner Time",
+  "spreadsheets": [
+    {
+      "key": "shopping",
+      "title": "01 Shopping List",
+      "tabs": [
+        {"name": "{{GROCERY_TAB}}", "role": "data", "headers": ["Item Needed", "Date Added", "Notes", "Added By", "UID"]},
+        {"name": "{{EXTRA_TAB}}", "role": "data", "headers": ["Item Needed", "Date Added", "Notes", "Added By", "UID"]},
+        {"name": "History", "role": "append-only", "headers": ["Item When Removed", "Date Added", "Item Notes When Removed", "Added By", "Removed On (Local Time)", "Removed By", "Removal Notes", "Original Item", "Original Date Added", "Original Notes", "Original Added By", "UID", "Removal Event ID", "Batch ID", "List"]},
+        {"name": "Activity Log", "role": "append-only", "headers": ["Item / Action Summary", "When (Local Time)", "Action", "Changed By", "Action Notes", "Item Before", "Item After", "Date Added Before", "Date Added After", "Notes Before", "Notes After", "Added By Before", "Added By After", "State Before", "State After", "Original Item", "Original Date Added", "Original Notes", "Original Added By", "UID", "Event ID", "Batch ID", "Related Event ID", "Recorded By", "List"]},
+        {"name": "How to Use", "role": "guide", "headers": ["Topic", "Plan and operating instructions"], "guide": "shopping"}
+      ]
+    },
+    {
+      "key": "freezer",
+      "title": "02 Freezer Inventory",
+      "tabs": [
+        {"name": "Inventory", "role": "data", "headers": ["Item ID", "Item", "Pick-day protein", "Status", "Label date", "Quantity", "Quantity unit", "Weight (lb)", "Location", "Date type", "Preparation", "Removed to thaw", "Reported by", "Source notes", "Update notes"]},
+        {"name": "Change Log", "role": "append-only", "headers": ["Event date", "Item ID", "Action", "Previous value", "New value", "Reported by", "Details"]},
+        {"name": "Confirmed Withdrawals", "role": "append-only", "headers": ["Batch ID", "Confirmed at", "Confirmed by", "Package ID", "Item", "Quantity removed", "Label date", "Cooked or raw", "Recipe status"]},
+        {"name": "Workflow", "role": "guide", "headers": ["Setting", "Rule"], "guide": "freezer"}
+      ]
+    },
+    {
+      "key": "recipes",
+      "title": "03 Recipes and Menu",
+      "tabs": [
+        {"name": "Recipes", "role": "data", "headers": ["RecipeID", "RecipeName", "Instructions", "ImageFileID", "UpdatedAt", "UpdatedBy", "AppPhotoURL", "Ingredients", "Ingredients From"]},
+        {"name": "RecipeCategories", "role": "data", "headers": ["RecipeCategoryID", "RecipeID", "CategoryID"]},
+        {"name": "Categories", "role": "lookup", "headers": ["CategoryID", "CategoryName"], "seed": "recipe_categories"},
+        {"name": "Ratings", "role": "data", "headers": ["RatingID", "RecipeID", "Rated By", "Stars", "Notes", "Updated At"]},
+        {"name": "Freezer Ideas", "role": "data", "headers": ["Week start", "Protein", "Category", "Recipe title", "Servings", "Prep minutes", "Cook minutes", "Ingredients with quantities", "Instructions", "Pantry matches", "Ingredients to buy or check", "Equipment", "Notes", "Source recipe ID or title", "Adaptation notes", "Batch ID", "Package ID", "Recipe option ID", "Created at", "Saved RecipeID"]},
+        {"name": "Menu", "role": "data", "headers": ["MenuID", "Date", "Day", "Role", "Source", "Recipe ID", "Recipe name", "Picked by", "Via", "Picked at", "Notes", "Outcome"]},
+        {"name": "Menu Archive", "role": "append-only", "headers": ["MenuID", "Date", "Day", "Role", "Source", "Recipe ID", "Recipe name", "Picked by", "Via", "Picked at", "Notes", "Outcome", "Archived at"]},
+        {"name": "Menu Log", "role": "append-only", "headers": ["When", "Who", "Via", "Action", "Date", "Recipe", "Details"]},
+        {"name": "Rules", "role": "guide", "headers": ["Topic", "Rule"], "guide": "recipes"},
+        {"name": "About", "role": "read-only", "headers": ["File", "Drive file ID", "Record ID", "Record", "Kind", "Source", "Credit / license", "Retrieved", "Notes"]}
+      ]
+    },
+    {
+      "key": "gear",
+      "title": "04 Gear and Maintenance",
+      "tabs": [
+        {"name": "Gear", "role": "data", "headers": ["GearID", "GearTypeID", "GearName", "Make", "Model", "Year", "VINSerialNumber", "PurchaseDate", "PurchasePrice", "CurrentMileage", "PurchaseMileage", "PayoffDate", "Notes", "PartsNotes", "ManualFileID", "Photo1FileID", "Photo2FileID", "Photo3FileID", "File1FileID", "File2FileID", "File3FileID", "Updated At", "Updated By"]},
+        {"name": "Maintenance", "role": "data", "headers": ["MaintenanceID", "GearID", "WorkCompleted", "CompletedDate", "Mileage / Hours", "Tasks", "Notes", "Photo1FileID", "Photo2FileID", "Photo3FileID", "File1FileID", "File2FileID", "File3FileID", "Updated At", "Updated By"]},
+        {"name": "Reminders", "role": "data", "headers": ["ReminderID", "GearID", "Task", "Details", "Due Date", "Due Mileage / Hours", "Done Date", "Done In (MaintenanceID)", "Source", "Created At", "Created By"]},
+        {"name": "Gear Types", "role": "lookup", "headers": ["GearTypeID", "GearTypeName"], "seed": "gear_types"},
+        {"name": "About", "role": "read-only", "headers": ["File", "Drive file ID", "Record ID", "Record", "Kind", "Source", "Credit / license", "Retrieved", "Notes"]}
+      ]
+    },
+    {
+      "key": "bugs",
+      "title": "05 Bug Report",
+      "tabs": [
+        {"name": "Bugs", "role": "append-mostly", "headers": ["Bug ID", "Date found", "Reported by", "Area", "Summary", "What happened", "What should happen", "Records affected", "Severity", "Status", "Fixed in build", "Notes"]}
+      ]
+    }
+  ],
+  "folders": [
+    {"key": "recipeImages", "title": "20 Recipe Images"},
+    {"key": "gearImages", "title": "21 Gear Images"},
+    {"key": "gearFiles", "title": "22 Gear Files"},
+    {"key": "maintImages", "title": "23 Maintenance Images"},
+    {"key": "siteFiles", "title": "29 Site Files"},
+    {"key": "appChanges", "title": "30 App Changes", "children": [
+      {"key": "inbox", "title": "31 Inbox – ready for the app"},
+      {"key": "applied", "title": "32 Applied"},
+      {"key": "held", "title": "33 Held – needs the owner"},
+      {"key": "drafts", "title": "34 Drafts – work in progress"}
+    ]},
+    {"key": "setupRecords", "title": "90 Setup Records"}
+  ],
+  "docs": [
+    {"key": "rules", "title": "00 Agent Rules – read first", "template": "doc-templates/00-agent-rules.md", "parent": "root"},
+    {"key": "prefs", "title": "1N {{PERSON_NAME}} Recipe Preferences", "template": "doc-templates/recipe-preferences.md", "parent": "root", "per_person": true, "numbering": "10, 11, 12 … one per person"},
+    {"key": "pantry", "title": "{{PANTRY_NUM}} Pantry Staples", "template": "doc-templates/pantry-staples.md", "parent": "root", "numbering": "the next number after the last preferences doc"},
+    {"key": "guide", "title": "19 Site Guide", "template": "doc-templates/19-site-guide.md", "parent": "root"},
+    {"key": "changeRules", "title": "30 App Change Rules – read first", "template": "doc-templates/30-app-change-rules.md", "parent": "appChanges"},
+    {"key": "changeTemplate", "title": "_TEMPLATE CHANGE.md", "template": "../app-changes/_TEMPLATE CHANGE.md", "parent": "drafts", "plain_text": true}
+  ],
+  "seeds": {
+    "recipe_categories": ["Beef", "Breakfast", "Burgers", "Chicken", "Dessert", "Fish", "Grill", "Leftovers", "Pasta", "Pork", "Potatoes", "Salad", "Sauce", "Sausage", "Seafood", "Sides", "Slow cooker", "Soup", "Steak", "Turkey", "Vegetarian", "Misc."],
+    "gear_types": ["Vehicle", "Trailer", "Boat", "Bicycle", "Power Equipment", "Lawn & Garden", "Appliance", "Electronics", "Computer", "Home Systems", "Tools", "zMisc."]
+  },
+  "seed_id_rule": "Categories: CategoryID = the category name. Gear Types: GearTypeID = the type name. Households may add their own later.",
+  "aisles_default": ["Produce", "Bread", "Meat", "Dry goods", "Frozen", "Dairy", "Deli", "Bakery", "Household"],
+  "colors": ["navy", "turquoise", "coral", "violet", "gold", "green"]
+}
